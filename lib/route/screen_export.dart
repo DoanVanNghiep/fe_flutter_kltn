@@ -1,0 +1,12 @@
+export '/screens/onbording/views/onbording_screen.dart';
+export '/screens/auth/views/login_screen.dart';
+export '/screens/auth/views/password_recovery_screen.dart';
+export '/screens/auth/views/signup_screen.dart';
+export '/screens/home/views/home_screen.dart';
+export '/screens/search_motel/views/motel_search_screen.dart';
+export '/screens/profile/views/profile_screen.dart';
+export '/screens/user_info/views/user_info_screen.dart';
+export '/screens/notification/views/notification_screen.dart';
+export '/screens/post/views/create_post_screen.dart';
+export '/screens/post/views/manage_post_screen.dart';
+export '/screens/post/views/update_post_screen.dart';
