@@ -1,0 +1,219 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 130023424 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3532), pid=14224, tid=7840
+#
+# JRE version:  (17.0.2+8) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.2+8-86, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: org.jetbrains.kotlin.cli.jvm.K2JVMCompiler @D:\DoanVanNghiep_KLTN\fe_flutter_kltn\build\webview_flutter_android\20250419_2952958350785614223.compiler.options
+
+Host: 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz, 8 cores, 7G,  Windows 11 , 64 bit Build 22621 (10.0.22621.5124)
+Time: Sat Apr 19 09:15:33 2025 SE Asia Standard Time elapsed time: 0.148161 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001b1da693e40):  JavaThread "Unknown thread" [_thread_in_vm, id=7840, stack(0x0000007f4b900000,0x0000007f4ba00000)]
+
+Stack: [0x0000007f4b900000,0x0000007f4ba00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x670baa]
+V  [jvm.dll+0x7cfcb4]
+V  [jvm.dll+0x7d145e]
+V  [jvm.dll+0x7d1ac3]
+V  [jvm.dll+0x242bc5]
+V  [jvm.dll+0x66dac9]
+V  [jvm.dll+0x662412]
+V  [jvm.dll+0x300c0b]
+V  [jvm.dll+0x3081a6]
+V  [jvm.dll+0x357d0e]
+V  [jvm.dll+0x357f3f]
+V  [jvm.dll+0x2d7ec8]
+V  [jvm.dll+0x2d8e34]
+V  [jvm.dll+0x7a18c1]
+V  [jvm.dll+0x365a91]
+V  [jvm.dll+0x780d2c]
+V  [jvm.dll+0x3e845f]
+V  [jvm.dll+0x3e9f01]
+C  [jli.dll+0x527b]
+C  [ucrtbase.dll+0x29333]
+C  [KERNEL32.DLL+0x1259d]
+C  [ntdll.dll+0x5af38]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007fff7cb79858, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001b1da6d2e70 GCTaskThread "GC Thread#0" [stack: 0x0000007f4ba00000,0x0000007f4bb00000] [id=6624]
+  0x000001b1da6e3530 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000007f4bb00000,0x0000007f4bc00000] [id=11668]
+  0x000001b1da6e3f40 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000007f4bc00000,0x0000007f4bd00000] [id=12004]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff7c3c88a7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001b1da6913a0] Heap_lock - owner thread: 0x000001b1da693e40
+
+Heap address: 0x0000000084400000, size: 1980 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 0.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000084400000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff7c7a9f19]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (1 events):
+Event: 0.131 Loaded shared library D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\java.dll
+
+
+Dynamic libraries:
+0x00007ff6b2910000 - 0x00007ff6b291e000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\java.exe
+0x00007fffe9070000 - 0x00007fffe9287000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007fffe85a0000 - 0x00007fffe8664000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007fffe6180000 - 0x00007fffe6553000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007fffe68c0000 - 0x00007fffe69d1000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007fffdb750000 - 0x00007fffdb768000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\jli.dll
+0x00007fffe8b70000 - 0x00007fffe8d21000 	C:\WINDOWS\System32\USER32.dll
+0x00007fffdb730000 - 0x00007fffdb74a000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\VCRUNTIME140.dll
+0x00007fffe6750000 - 0x00007fffe6776000 	C:\WINDOWS\System32\win32u.dll
+0x00007fffe7cb0000 - 0x00007fffe7cd9000 	C:\WINDOWS\System32\GDI32.dll
+0x00007fffd2740000 - 0x00007fffd29d8000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.5124_none_270e8f4f7386d69d\COMCTL32.dll
+0x00007fffe69e0000 - 0x00007fffe6afb000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007fffe6c70000 - 0x00007fffe6d0a000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007fffe8f80000 - 0x00007fffe9027000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007fffe8f40000 - 0x00007fffe8f71000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007fffd0080000 - 0x00007fffd008c000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\vcruntime140_1.dll
+0x00007fffa4330000 - 0x00007fffa43bd000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\msvcp140.dll
+0x00007fff7c0e0000 - 0x00007fff7cca1000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\server\jvm.dll
+0x00007fffe7ce0000 - 0x00007fffe7d91000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007fffe8d30000 - 0x00007fffe8dd8000 	C:\WINDOWS\System32\sechost.dll
+0x00007fffe6b00000 - 0x00007fffe6b28000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007fffe7e40000 - 0x00007fffe7f54000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007fffe86d0000 - 0x00007fffe86d8000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007fffd0070000 - 0x00007fffd0079000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007fffe8750000 - 0x00007fffe87c1000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007fffe04d0000 - 0x00007fffe0504000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007fffde1f0000 - 0x00007fffde1fa000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007fffe5170000 - 0x00007fffe5188000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007fffd0060000 - 0x00007fffd006a000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\jimage.dll
+0x00007fffe3800000 - 0x00007fffe3a32000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007fffe87d0000 - 0x00007fffe8b62000 	C:\WINDOWS\System32\combase.dll
+0x00007fffe6e20000 - 0x00007fffe6ef7000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007fffcc620000 - 0x00007fffcc652000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007fffe6780000 - 0x00007fffe67fb000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007fffa4270000 - 0x00007fffa4295000 	D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.5124_none_270e8f4f7386d69d;D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin\server
+
+VM Arguments:
+java_command: org.jetbrains.kotlin.cli.jvm.K2JVMCompiler @D:\DoanVanNghiep_KLTN\fe_flutter_kltn\build\webview_flutter_android\20250419_2952958350785614223.compiler.options
+java_class_path (initial): C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-compiler-embeddable\1.8.22\e2cf111da088dc807a74157741b4cd4b664edfb7\kotlin-compiler-embeddable-1.8.22.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.8.22\636bf8b320e7627482771bbac9ed7246773c02bd\kotlin-stdlib-1.8.22.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-script-runtime\1.8.22\ce5ff1f309623f8c1be5143bdba032c4a04cec3a\kotlin-script-runtime-1.8.22.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.6.10\1cbe9c92c12a94eea200d23c2bbaedaf3daf5132\kotlin-reflect-1.6.10.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-daemon-embeddable\1.8.22\7d9f7e06a59d2fcbc9b373400c146f42fd722e81\kotlin-daemon-embeddable-1.8.22.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.intellij.deps\trove4j\1.0.20200330\3afb14d5f9ceb459d724e907a21145e8ff394f02\trove4j-1.0.20200330.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\5.6.0\330f2244e9030119ab3030fc3fededc86713d9cc\jna-5.6.0.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.8.22\1a8e3601703ae14bb58757ea6b2d8e8e5935a586\kotlin-stdlib-common-1.8.22.jar;C:\Users\admin\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 130023424                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2076180480                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2076180480                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2
+CLASSPATH=D:\DoanVanNghiep_KLTN\fe_flutter_kltn\android\\gradle\wrapper\gradle-wrapper.jar
+PATH=D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\New folder\;C:\Program Files\Git\cmd;D:\DoanVanNghiep_KLTN\flutter\bin;D:\DoanVanNghiep_KLTN\jdk\jdk-17.0.2\bin;C:\Users\admin\AppData\Local\Microsoft\WindowsApps;;C:\Users\admin\AppData\Roaming\npm;D:\DoanVanNghiep_KLTN\flutter\bin\mingit\cmd
+USERNAME=admin
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 22621 (10.0.22621.5124)
+OS uptime: 2 days 12:21 hours
+Hyper-V role detected
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 140 stepping 1 microcode 0xba, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, avx512f, avx512dq, avx512cd, avx512bw, avx512vl, sha, fma, vzeroupper, avx512_vpopcntdq, avx512_vpclmulqdq, avx512_vaes, avx512_vnni, clflush, clflushopt, clwb, avx512_vbmi2, avx512_vbmi, hv
+
+Memory: 4k page, system-wide physical 7914M (188M free)
+TotalPageFile size 20900M (AvailPageFile size 49M)
+current process WorkingSet (physical memory assigned to process): 11M, peak: 11M
+current process commit charge ("private bytes"): 60M, peak: 184M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.2+8-86) for windows-amd64 JRE (17.0.2+8-86), built on Dec  7 2021 21:49:10 by "mach5one" with MS VC++ 16.8 / 16.9 (VS2019)
+
+END.

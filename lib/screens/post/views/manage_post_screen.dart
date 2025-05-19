@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:vnua_service/screens/post/service/posts_service.dart';
-import 'package:vnua_service/screens/post/views/update_post_screen.dart';
-
 
 class ManagePostsScreen extends StatefulWidget {
   const ManagePostsScreen({super.key});
@@ -29,7 +27,6 @@ class _ManagePostsScreenState extends State<ManagePostsScreen> {
       return "Không rõ";
     }
   }
-
 
   final tabs = [
     "Tất cả",
@@ -107,9 +104,11 @@ class _ManagePostsScreenState extends State<ManagePostsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Quản lý tin đăng", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text("Quản lý tin đăng",
+            style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_none)),
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.notifications_none)),
         ],
       ),
       body: Column(
@@ -161,132 +160,162 @@ class _ManagePostsScreenState extends State<ManagePostsScreen> {
             child: isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : filteredPosts.isEmpty
-                ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("assets/empty-post.png", width: 120),
-                  const SizedBox(height: 12),
-                  const Text("Không tìm thấy tin đăng", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  const SizedBox(height: 6),
-                  const Text("Không có bài viết nào trong trạng thái này"),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Điều hướng đăng tin
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    ),
-                    child: const Text("Đăng tin"),
-                  )
-                ],
-              ),
-            )
-                : ListView.builder(
-              padding: const EdgeInsets.all(12),
-              itemCount: filteredPosts.length + ((hasMore && filteredPosts.length > 5) ? 1 : 0),
-              itemBuilder: (context, index) {
-                if (index < filteredPosts.length) {
-                  final post = filteredPosts[index];
-                  final b64Image = post['userDTO']?['b64'];
-                  Uint8List? imageBytes;
-                  if (b64Image != null && b64Image is String && b64Image.isNotEmpty) {
-                    try {
-                      imageBytes = base64Decode(b64Image);
-                    } catch (_) {
-                      imageBytes = null;
-                    }
-                  }
-
-                  final statusText = getPostStatus(post);
-
-                  return Card(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          // Ảnh
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: imageBytes != null
-                                ? Image.memory(imageBytes, width: 60, height: 60, fit: BoxFit.cover)
-                                : Image.asset("assets/images/room_default.jpg", width: 60, height: 60, fit: BoxFit.cover),
-                          ),
-                          const SizedBox(width: 12),
-
-                          // Tiêu đề và trạng thái
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(post["title"] ?? "Không có tiêu đề", style: const TextStyle(fontWeight: FontWeight.bold)),
-                                const SizedBox(height: 4),
-                                Text("Trạng thái: $statusText", style: const TextStyle(color: Colors.grey)),
-                                const SizedBox(height: 4),
-
-                                if (post["createAt"] != null)
-                                  Text(
-                                    "Ngày tạo: ${formatDate(post["createAt"])}",
-                                    style: const TextStyle(fontSize: 12, color: Colors.grey),
-                                  ),
-                              ],
-                            ),
-                          ),
-
-                          // Hành động
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.edit, color: Colors.teal),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => UpdatePostScreen(postId: post["id"]),
-                                    ),
-                                  );
-                                },
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/empty-post.png", width: 120),
+                            const SizedBox(height: 12),
+                            const Text("Không tìm thấy tin đăng",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16)),
+                            const SizedBox(height: 6),
+                            const Text(
+                                "Không có bài viết nào trong trạng thái này"),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                // Điều hướng đăng tin
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.teal,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
                               ),
-                              if (statusText != "Đang chờ duyệt" && statusText != "Bị từ chối")
-                                IconButton(
-                                  icon: Icon(
-                                    post["del"] == true ? Icons.visibility : Icons.visibility_off,
-                                    color: Colors.redAccent,
-                                  ),
-                                  onPressed: () async {
-                                    final updated = await PostsService().togglePostVisibility(post["id"]);
-                                    if (updated) {
-                                      setState(() {
-                                        post["del"] = !(post["del"] == true);
-                                      });
-                                    }
-                                  },
-                                ),
-                            ],
-                          ),
+                              child: const Text("Đăng tin"),
+                            )
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(12),
+                        itemCount: filteredPosts.length +
+                            ((hasMore && filteredPosts.length > 5) ? 1 : 0),
+                        itemBuilder: (context, index) {
+                          if (index < filteredPosts.length) {
+                            final post = filteredPosts[index];
+                            final b64Image = post['userDTO']?['b64'];
+                            Uint8List? imageBytes;
+                            if (b64Image != null &&
+                                b64Image is String &&
+                                b64Image.isNotEmpty) {
+                              try {
+                                imageBytes = base64Decode(b64Image);
+                              } catch (_) {
+                                imageBytes = null;
+                              }
+                            }
 
-                        ],
+                            final statusText = getPostStatus(post);
+
+                            return Card(
+                              margin: const EdgeInsets.only(bottom: 12),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    // Ảnh
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: imageBytes != null
+                                          ? Image.memory(imageBytes,
+                                              width: 60,
+                                              height: 60,
+                                              fit: BoxFit.cover)
+                                          : Image.asset(
+                                              "assets/images/room_default.jpg",
+                                              width: 60,
+                                              height: 60,
+                                              fit: BoxFit.cover),
+                                    ),
+                                    const SizedBox(width: 12),
+
+                                    // Tiêu đề và trạng thái
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              post["title"] ??
+                                                  "Không có tiêu đề",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                          const SizedBox(height: 4),
+                                          Text("Trạng thái: $statusText",
+                                              style: const TextStyle(
+                                                  color: Colors.grey)),
+                                          const SizedBox(height: 4),
+                                          if (post["createAt"] != null)
+                                            Text(
+                                              "Ngày tạo: ${formatDate(post["createAt"])}",
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    // Hành động
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          icon: const Icon(Icons.edit,
+                                              color: Colors.teal),
+                                          onPressed: () {
+                                            // Navigator.push(
+                                            //   context,
+                                            //   // MaterialPageRoute(
+                                            //   //   builder: (_) => UpdatePostScreen(postId: post["id"]),
+                                            //   // ),
+                                            // );
+                                          },
+                                        ),
+                                        if (statusText != "Đang chờ duyệt" &&
+                                            statusText != "Bị từ chối")
+                                          IconButton(
+                                            icon: Icon(
+                                              post["del"] == true
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              color: Colors.redAccent,
+                                            ),
+                                            onPressed: () async {
+                                              final updated =
+                                                  await PostsService()
+                                                      .togglePostVisibility(
+                                                          post["id"]);
+                                              if (updated) {
+                                                setState(() {
+                                                  post["del"] =
+                                                      !(post["del"] == true);
+                                                });
+                                              }
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Center(
+                                child: ElevatedButton(
+                                  onPressed: () => fetchPosts(loadMore: true),
+                                  child: const Text("Tải thêm"),
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
-                    ),
-                  );
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: Center(
-                      child: ElevatedButton(
-                        onPressed: () => fetchPosts(loadMore: true),
-                        child: const Text("Tải thêm"),
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
           ),
         ],
       ),

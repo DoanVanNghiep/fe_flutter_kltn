@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vnua_service/screens/home/views/home_banner_and_feature_section.dart';
+import 'package:vnua_service/screens/search_motel/components/accomodation_screen.dart';
+import 'package:vnua_service/screens/search_motel/components/post_screen.dart';
 import '../components/header_section.dart';
 import '../components/price_range_section.dart';
 import '../components/motel_card_list.dart';
@@ -14,31 +17,8 @@ class MotelSearchScreen extends StatefulWidget {
 }
 
 class _MotelSearchScreenState extends State<MotelSearchScreen> {
-  int _currentIndex = 1;
   String _searchKeyword = "";
 
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        Navigator.pushNamed(context, homeScreenRoute);
-        break;
-      case 1:
-        Navigator.pushNamed(context, motelSearchRoute);
-        break;
-      case 3:
-        Navigator.pushNamed(context, notificationOptionsScreenRoute);
-        break;
-      case 4:
-        Navigator.pushNamed(context, profileScreenRoute);
-        break;
-    }
-  }
-
-  // callback khi người dùng chọn từ khóa tìm kiếm
   void _handleSearch(String keyword) {
     setState(() {
       _searchKeyword = keyword;
@@ -57,16 +37,17 @@ class _MotelSearchScreenState extends State<MotelSearchScreen> {
               children: [
                 const SizedBox(height: 20),
                 PriceRangeSection(onSearch: _handleSearch), // truyền callback
+                // const SizedBox(height: 20),
+                const HomeBannerAndFeatureSection(),
                 const SizedBox(height: 20),
-                ExploreSection(searchKeyword: _searchKeyword), // truyền từ khóa
+                AccomodationScreen(
+                    searchKeyword: _searchKeyword), // truyền từ khóa
+                const SizedBox(height: 20),
+                PostScreen(searchKeyword: _searchKeyword),
               ],
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vnua_service/generated/l10n.dart';
 import 'package:vnua_service/screens/auth/services/auth_service.dart';
 import 'package:vnua_service/route/route_constants.dart';
 
@@ -38,17 +39,20 @@ class _LogInFormState extends State<LogInForm> {
     if (response.containsKey("error")) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(response["error"], style: const TextStyle(color: Colors.red)),
+          content: Text(response["error"],
+              style: const TextStyle(color: Colors.red)),
           backgroundColor: Colors.black87,
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Đăng nhập thành công!", style: TextStyle(color: Colors.green))),
+        SnackBar(
+            content: Text(S.current.generated_login_successful,
+                style: const TextStyle(color: Colors.green))),
       );
 
       // Điều hướng đến HomeScreen
-      Navigator.pushNamed(context, homeScreenRoute);
+      Navigator.pushNamed(context, LayoutScreenRoute);
     }
   }
 
@@ -61,11 +65,12 @@ class _LogInFormState extends State<LogInForm> {
           // Email Input
           TextFormField(
             controller: _emailController,
-            validator: (value) => value!.isEmpty ? "Hãy nhập vào địa chỉ Email" : null,
+            validator: (value) =>
+                value!.isEmpty ? S.current.generated_enter_email_address : null,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: "Địa chỉ Email",
+              hintText: S.current.generated_email_address,
               prefixIcon: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: SvgPicture.asset(
@@ -82,10 +87,11 @@ class _LogInFormState extends State<LogInForm> {
           // Password Input
           TextFormField(
             controller: _passwordController,
-            validator: (value) => value!.isEmpty ? "Hãy nhập vào mật khẩu" : null,
+            validator: (value) =>
+                value!.isEmpty ? S.current.generated_enter_password : null,
             obscureText: _obscurePassword,
             decoration: InputDecoration(
-              hintText: "Mật khẩu",
+              hintText: S.current.generated_password,
               prefixIcon: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: SvgPicture.asset(
@@ -95,7 +101,8 @@ class _LogInFormState extends State<LogInForm> {
                 ),
               ),
               suffixIcon: IconButton(
-                icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                icon: Icon(
+                    _obscurePassword ? Icons.visibility_off : Icons.visibility),
                 onPressed: () {
                   setState(() {
                     _obscurePassword = !_obscurePassword;
@@ -108,8 +115,10 @@ class _LogInFormState extends State<LogInForm> {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () => Navigator.pushNamed(context, passwordRecoveryScreenRoute),
-              child: const Text("Quên mật khẩu?", style: TextStyle(color: Colors.blue)),
+              onPressed: () =>
+                  Navigator.pushNamed(context, passwordRecoveryScreenRoute),
+              child: Text(S.current.generated_forgot_password,
+                  style: const TextStyle(color: Colors.blue)),
             ),
           ),
           // Login Button
@@ -126,7 +135,9 @@ class _LogInFormState extends State<LogInForm> {
               onPressed: _isLoading ? null : _submitLogin,
               child: _isLoading
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Đăng nhập", style: TextStyle(fontSize: 18, color: Colors.white)),
+                  : Text(S.current.generated_login,
+                      style:
+                          const TextStyle(fontSize: 18, color: Colors.white)),
             ),
           ),
         ],

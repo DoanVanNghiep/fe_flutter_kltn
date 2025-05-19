@@ -9,7 +9,6 @@ import '../components/flash_sale.dart';
 import '../components/most_popular.dart';
 import '../components/offer_carousel_and_categories.dart';
 import '../components/popular_products.dart';
-import '../../widgets/custom_bottom_nav.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -86,10 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SliverToBoxAdapter(child: BestSellers()),
           ],
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
       ),
     );
   }

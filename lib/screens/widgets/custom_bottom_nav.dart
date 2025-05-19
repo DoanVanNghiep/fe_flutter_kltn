@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vnua_service/generated/l10n.dart';
+import 'package:vnua_service/res/color.dart';
 import 'package:vnua_service/route/route_constants.dart';
+import 'package:vnua_service/screens/post/widget/post_category_modal.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int currentIndex;
@@ -14,7 +17,8 @@ class CustomBottomNavigationBar extends StatefulWidget {
   });
 
   @override
-  State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
@@ -56,95 +60,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => _buildCategoryList(),
-    );
-  }
-
-  Widget _buildCategoryList() {
-    final List<Map<String, dynamic>> categories = [
-      {'icon': Icons.apartment, 'title': 'Phòng trọ'},
-      {'icon': Icons.storefront, 'title': 'Cửa hàng'},
-      {'icon': Icons.local_shipping, 'title': 'Ship hàng'},
-    ];
-
-    return Container(
-      height: 400,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        children: [
-          // Header
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.teal, Colors.tealAccent],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            child: const Center(
-              child: Text(
-                "Danh mục tin đăng",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 12),
-
-          // Danh mục dạng lưới
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.count(
-                crossAxisCount: 3,
-                childAspectRatio: 0.9,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                children: categories.map((item) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      if (item['title'] == 'Phòng trọ') {
-                        Navigator.pushNamed(context, createPostRoute);
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.teal.shade50,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.teal.shade100),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(item['icon'], size: 34, color: Colors.teal),
-                          const SizedBox(height: 8),
-                          Text(
-                            item['title'],
-                            style: const TextStyle(fontSize: 14),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-        ],
-      ),
+      builder: (context) => const PostCategoryModal(),
     );
   }
 
@@ -174,16 +90,20 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             onTap: (index) {
               if (index != 2) widget.onTap(index);
             },
-            selectedItemColor: Colors.teal,
+            selectedItemColor: AppColors.secondary400,
             unselectedItemColor: Colors.grey,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             items: [
-              _buildNavItem("assets/icons/house.svg", "Trang chủ", 0),
-              _buildNavItem("assets/icons/search.svg", "Tìm trọ", 1),
+              _buildNavItem(
+                  "assets/icons/house.svg", S.current.generated_home, 0),
+              _buildNavItem("assets/icons/search.svg",
+                  S.current.generated_manage_listings, 1),
               _buildLogoItem(),
-              _buildNavItem("assets/icons/bell-dot.svg", "Thông báo", 3),
-              _buildNavItem("assets/icons/user.svg", "Tài khoản", 4),
+              _buildNavItem("assets/icons/bell-dot.svg",
+                  S.current.generated_notifications, 3),
+              _buildNavItem(
+                  "assets/icons/user.svg", S.current.generated_account, 4),
             ],
           ),
         ),
@@ -196,14 +116,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               height: 70,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.teal.shade400, Colors.teal.shade700],
+                  colors: [AppColors.secondary400, AppColors.secondary600],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.teal.withOpacity(0.5),
+                    color: AppColors.secondary400,
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
@@ -217,7 +137,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     );
   }
 
-  BottomNavigationBarItem _buildNavItem(String svgPath, String label, int index) {
+  BottomNavigationBarItem _buildNavItem(
+      String svgPath, String label, int index) {
     return BottomNavigationBarItem(
       icon: SvgPicture.asset(
         svgPath,
@@ -229,7 +150,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         svgPath,
         width: 24,
         height: 24,
-        colorFilter: const ColorFilter.mode(Colors.teal, BlendMode.srcIn),
+        colorFilter:
+            const ColorFilter.mode(AppColors.secondary400, BlendMode.srcIn),
       ),
       label: label,
     );

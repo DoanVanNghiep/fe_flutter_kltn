@@ -8,7 +8,8 @@ class AuthService {
   static const String _baseUrl = "${AppConfig.baseUrl}/auth";
 
   // Đăng ký tài khoản mới
-  Future<Map<String, dynamic>> register(String fullName, String email, String password, String address, String phone) async {
+  Future<Map<String, dynamic>> register(String fullName, String email,
+      String password, String address, String phone) async {
     try {
       final response = await http.post(
         Uri.parse("$_baseUrl/register"),
@@ -81,14 +82,6 @@ class AuthService {
         await prefs.setString("token", token);
         await prefs.setInt("userId", userId);
         await prefs.setString("name", name);
-
-
-        print("✅ Đăng nhập thành công! Token: $token");
-
-        print("Token hiện tại: ${prefs.getString("token")}");
-        print("id hiện tại: ${prefs.getInt("userId")}");
-
-
         return {"success": true, "data": responseData["data"]};
       }
 
@@ -135,7 +128,8 @@ class AuthService {
   }
 
   // Xác thực OTP và đặt lại mật khẩu mới
-  Future<String> resetPassword(String email, String otp, String newPassword) async {
+  Future<String> resetPassword(
+      String email, String otp, String newPassword) async {
     try {
       final response = await http.put(
         Uri.parse("$_baseUrl/forgot-password"),
@@ -150,7 +144,6 @@ class AuthService {
     }
   }
 
-
   // Đăng xuất
   Future<void> logout(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
@@ -161,5 +154,4 @@ class AuthService {
     // Chuyển về màn hình login hoặc splash
     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
-
 }

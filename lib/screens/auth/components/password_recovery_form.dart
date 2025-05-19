@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vnua_service/generated/l10n.dart';
 import '../services/auth_service.dart';
 import 'package:vnua_service/screens/auth/views/otp/otp_verification_screen.dart'; // Popup OTP
 
@@ -39,10 +40,11 @@ class _PasswordRecoveryFormState extends State<PasswordRecoveryForm> {
                   "assets/icons/Message.svg",
                   height: 24,
                   width: 24,
-                  colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
                 ),
               ),
-              hintText: "Địa chỉ Email",
+              hintText: S.current.generated_email_address,
               filled: true,
               fillColor: Colors.white.withOpacity(0.9),
               border: OutlineInputBorder(
@@ -52,10 +54,11 @@ class _PasswordRecoveryFormState extends State<PasswordRecoveryForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Vui lòng nhập email của bạn";
-              } else if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                return S.current.generated_please_enter_your_email;
+              } else if (!RegExp(
+                      r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
                   .hasMatch(value)) {
-                return "Nhập email hợp lệ";
+                return S.current.generated_enter_valid_email;
               }
               return null;
             },
@@ -86,11 +89,13 @@ class _PasswordRecoveryFormState extends State<PasswordRecoveryForm> {
                     );
 
                     // ✅ Nếu thành công, chuyển đến OTPVerificationScreen
-                    if (message.toLowerCase().contains('otp') || message.toLowerCase().contains('mã')) {
+                    if (message.toLowerCase().contains('otp') ||
+                        message.toLowerCase().contains('mã')) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTPVerificationScreen(email: email),
+                          builder: (context) =>
+                              OTPVerificationScreen(email: email),
                         ),
                       );
                     }
@@ -101,10 +106,10 @@ class _PasswordRecoveryFormState extends State<PasswordRecoveryForm> {
               },
               child: _isLoading
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text(
-                "Tiếp tục",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+                  : Text(
+                      S.current.generated_continue,
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                    ),
             ),
           ),
         ],

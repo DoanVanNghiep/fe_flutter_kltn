@@ -15,7 +15,6 @@ class _ExploreSectionState extends State<ExploreSection> {
   final PostsService _postsService = PostsService();
   List<dynamic> _posts = [];
   List<dynamic> _filteredPosts = [];
-  int _visibleCount = 4;
   bool _isLoading = true;
 
   @override
@@ -38,10 +37,11 @@ class _ExploreSectionState extends State<ExploreSection> {
     }
   }
 
-  // Hàm loại bỏ dấu tiếng Việt
   String removeDiacritics(String str) {
-    const withDiacritics = 'áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵ';
-    const withoutDiacritics = 'aaaaaaaaaaaaaaaaadeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyy';
+    const withDiacritics =
+        'áàảãạâấầẩẫậăắằẳẵặđéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵ';
+    const withoutDiacritics =
+        'aaaaaaaaaaaaaaaaadeeeeeeeeeeeiiiiiooooooooooooooooouuuuuuuuuuuyyyyy';
 
     for (int i = 0; i < withDiacritics.length; i++) {
       str = str.replaceAll(withDiacritics[i], withoutDiacritics[i]);
@@ -56,38 +56,29 @@ class _ExploreSectionState extends State<ExploreSection> {
     if (keyword.isEmpty) {
       _filteredPosts = [..._posts];
     } else {
-      final keywordWords = keyword.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
+      final keywordWords =
+          keyword.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
 
       _filteredPosts = _posts.where((post) {
-        final addressRaw = (post['accomodationDTO']?['address'] ?? '').toString().toLowerCase();
-        final priceRaw = (post['accomodationDTO']?['price'] ?? '').toString().toLowerCase();
+        final addressRaw = (post['accomodationDTO']?['address'] ?? '')
+            .toString()
+            .toLowerCase();
+        final priceRaw =
+            (post['accomodationDTO']?['price'] ?? '').toString().toLowerCase();
 
         final address = removeDiacritics(addressRaw);
         final price = removeDiacritics(priceRaw);
 
-        return keywordWords.any((word) =>
-        address.contains(word) || price.contains(word));
+        return keywordWords
+            .any((word) => address.contains(word) || price.contains(word));
       }).toList();
     }
-
-    _visibleCount = 4;
-  }
-
-  void _toggleViewMore() {
-    setState(() {
-      if (_visibleCount >= _filteredPosts.length) {
-        _visibleCount = 4;
-      } else {
-        _visibleCount = (_visibleCount + 4).clamp(0, _filteredPosts.length);
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) return const Center(child: CircularProgressIndicator());
 
-    // Gọi filter mỗi lần build
     _applySearchFilter();
 
     if (_filteredPosts.isEmpty) {
@@ -99,8 +90,6 @@ class _ExploreSectionState extends State<ExploreSection> {
         ),
       );
     }
-
-    final visiblePosts = _filteredPosts.take(_visibleCount).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,18 +105,7 @@ class _ExploreSectionState extends State<ExploreSection> {
             ],
           ),
         if (widget.searchKeyword.trim().isEmpty) const SizedBox(height: 12),
-        ..._buildRows(visiblePosts),
-        const SizedBox(height: 8),
-        if (_filteredPosts.length > 4)
-          Center(
-            child: TextButton(
-              onPressed: _toggleViewMore,
-              child: Text(
-                _visibleCount >= _filteredPosts.length ? 'Ẩn bớt' : 'Xem thêm',
-                style: const TextStyle(color: Colors.blue),
-              ),
-            ),
-          ),
+        ..._buildRows(_filteredPosts),
       ],
     );
   }
