@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vnua_service/screens/post/service/posts_service.dart';
@@ -103,6 +104,12 @@ class _PostScreenState extends State<PostScreen> {
                 "Tin đăng dành cho bạn",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+              TextButton(
+                onPressed: () {
+                  // TODO: Điều hướng đến màn hình xem tất cả
+                },
+                child: const Text("Xem tất cả"),
+              ),
             ],
           ),
         const SizedBox(height: 12),
@@ -115,10 +122,7 @@ class _PostScreenState extends State<PostScreen> {
     return posts.map((post) {
       final title = post['title'] ?? '';
       final fullName = post['userDTO']?['fullName'] ?? '';
-      final imageUrl =
-          (post['imageStrings'] != null && post['imageStrings'].isNotEmpty)
-              ? post['imageStrings'][0]
-              : null;
+      final imageBase64 = post['userDTO']?['b64'];
       final createdAt = post['createAt'];
       final date = createdAt != null
           ? DateFormat('dd/MM/yyyy').format(DateTime.parse(createdAt))
@@ -135,14 +139,14 @@ class _PostScreenState extends State<PostScreen> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (imageUrl != null)
+              if (imageBase64 != null && imageBase64.isNotEmpty)
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     bottomLeft: Radius.circular(12),
                   ),
-                  child: Image.network(
-                    imageUrl,
+                  child: Image.memory(
+                    base64Decode(imageBase64),
                     width: 120,
                     height: 100,
                     fit: BoxFit.cover,

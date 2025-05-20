@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vnua_service/route/route_constants.dart' as router;
 
 class PostCategoryModal extends StatelessWidget {
   const PostCategoryModal({super.key});
@@ -18,9 +19,30 @@ class PostCategoryModal extends StatelessWidget {
     ];
 
     final List<Map<String, dynamic>> categories = [
-      {'icon': Icons.apartment, 'title': 'Phòng trọ'},
-      {'icon': Icons.electric_scooter, 'title': 'Cửa hàng'},
-      {'icon': Icons.devices_other, 'title': 'Ship hàng'},
+      {
+        'icon': Icons.apartment,
+        'title': 'Phòng trọ',
+        'onTap': () {
+          Navigator.pop(context); // Đóng modal trước
+          Navigator.pushNamed(context, router.createPostRoute); // Điều hướng
+        },
+      },
+      {
+        'icon': Icons.electric_scooter,
+        'title': 'Cửa hàng',
+        'onTap': () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/post-store');
+        },
+      },
+      {
+        'icon': Icons.devices_other,
+        'title': 'Ship hàng',
+        'onTap': () {
+          Navigator.pop(context);
+          Navigator.pushNamed(context, '/post-delivery');
+        },
+      },
     ];
 
     return Container(
@@ -109,9 +131,7 @@ class PostCategoryModal extends StatelessWidget {
                       leading: Icon(item['icon'], color: Colors.black),
                       title: Text(item['title']),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+                      onTap: item['onTap'], // Gọi trực tiếp hàm trong map
                     )),
               ],
             ),

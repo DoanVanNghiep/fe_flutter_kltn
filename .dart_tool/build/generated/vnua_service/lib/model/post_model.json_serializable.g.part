@@ -1,0 +1,148 @@
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$PostModelImpl _$$PostModelImplFromJson(Map<String, dynamic> json) =>
+    _$PostModelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      title: json['title'] as String?,
+      content: json['content'] as String?,
+      approved: json['approved'] as bool?,
+      notApproved: json['notApproved'] as bool?,
+      createAt: json['createAt'] as String?,
+      lastUpdate: json['lastUpdate'] as String?,
+      del: json['del'] as bool?,
+      userDTO: json['userDTO'] == null
+          ? null
+          : UserDTO.fromJson(json['userDTO'] as Map<String, dynamic>),
+      accomodationDTO: json['accomodationDTO'] == null
+          ? null
+          : AccomodationDTO.fromJson(
+              json['accomodationDTO'] as Map<String, dynamic>),
+      commentDTOS: json['commentDTOS'],
+      imageStrings: json['imageStrings'],
+      type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PostModelImplToJson(_$PostModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'content': instance.content,
+      'approved': instance.approved,
+      'notApproved': instance.notApproved,
+      'createAt': instance.createAt,
+      'lastUpdate': instance.lastUpdate,
+      'del': instance.del,
+      'userDTO': instance.userDTO,
+      'accomodationDTO': instance.accomodationDTO,
+      'commentDTOS': instance.commentDTOS,
+      'imageStrings': instance.imageStrings,
+      'type': instance.type,
+    };
+
+_$UserDTOImpl _$$UserDTOImplFromJson(Map<String, dynamic> json) =>
+    _$UserDTOImpl(
+      id: (json['id'] as num?)?.toInt(),
+      fullName: json['fullName'] as String?,
+      email: json['email'] as String?,
+      address: json['address'] as String?,
+      phone: json['phone'] as String?,
+      block: json['block'] as bool?,
+      b64: json['b64'] as String?,
+      fileType: json['fileType'] as String?,
+      role: json['role'] == null
+          ? null
+          : RoleDTO.fromJson(json['role'] as Map<String, dynamic>),
+      balance: json['balance'],
+    );
+
+Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'fullName': instance.fullName,
+      'email': instance.email,
+      'address': instance.address,
+      'phone': instance.phone,
+      'block': instance.block,
+      'b64': instance.b64,
+      'fileType': instance.fileType,
+      'role': instance.role,
+      'balance': instance.balance,
+    };
+
+_$RoleDTOImpl _$$RoleDTOImplFromJson(Map<String, dynamic> json) =>
+    _$RoleDTOImpl(
+      roleId: json['roleId'] as String?,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+    );
+
+Map<String, dynamic> _$$RoleDTOImplToJson(_$RoleDTOImpl instance) =>
+    <String, dynamic>{
+      'roleId': instance.roleId,
+      'name': instance.name,
+      'description': instance.description,
+    };
+
+_$AccomodationDTOImpl _$$AccomodationDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$AccomodationDTOImpl(
+      id: (json['id'] as num?)?.toInt(),
+      acreage: (json['acreage'] as num?)?.toDouble(),
+      address: json['address'] as String?,
+      airConditioner: json['airConditioner'] as bool?,
+      interior: json['interior'] as bool?,
+      electricPrice: (json['electricPrice'] as num?)?.toDouble(),
+      heater: json['heater'] as bool?,
+      internet: json['internet'] as bool?,
+      motel: json['motel'] as String?,
+      parking: json['parking'] as bool?,
+      price: (json['price'] as num?)?.toDouble(),
+      owner: json['owner'] as bool?,
+      toilet: json['toilet'] as bool?,
+      time: json['time'] as bool?,
+      waterPrice: (json['waterPrice'] as num?)?.toDouble(),
+      gender: json['gender'] as bool?,
+      district: json['district'] as String?,
+      kitchen: json['kitchen'] as bool?,
+      security: json['security'] as bool?,
+      openHours: json['openHours'] as String?,
+      secondMotel: json['secondMotel'] as String?,
+      delivery: json['delivery'] as String?,
+      dineIn: json['dineIn'] as String?,
+      takeAway: json['takeAway'] as String?,
+      bigSpace: json['bigSpace'] as bool?,
+      linkShopeeFood: json['linkShopeeFood'] as String?,
+    );
+
+Map<String, dynamic> _$$AccomodationDTOImplToJson(
+        _$AccomodationDTOImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'acreage': instance.acreage,
+      'address': instance.address,
+      'airConditioner': instance.airConditioner,
+      'interior': instance.interior,
+      'electricPrice': instance.electricPrice,
+      'heater': instance.heater,
+      'internet': instance.internet,
+      'motel': instance.motel,
+      'parking': instance.parking,
+      'price': instance.price,
+      'owner': instance.owner,
+      'toilet': instance.toilet,
+      'time': instance.time,
+      'waterPrice': instance.waterPrice,
+      'gender': instance.gender,
+      'district': instance.district,
+      'kitchen': instance.kitchen,
+      'security': instance.security,
+      'openHours': instance.openHours,
+      'secondMotel': instance.secondMotel,
+      'delivery': instance.delivery,
+      'dineIn': instance.dineIn,
+      'takeAway': instance.takeAway,
+      'bigSpace': instance.bigSpace,
+      'linkShopeeFood': instance.linkShopeeFood,
+    };
